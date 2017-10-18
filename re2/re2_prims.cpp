@@ -175,9 +175,13 @@ static int prim_re2_scanner_match_regexp(Process* proc) {
   return 0;
 }
 
-void re2_init_primitives(VM* vm) {
+extern "C" {
+
+void init(VM* vm) {
   vm->register_primitive("re2_scanner_new", prim_re2_scanner_new);
   vm->register_primitive("re2_scanner_match", prim_re2_scanner_match);
   vm->register_primitive("re2_scanner_consume", prim_re2_scanner_consume);
   vm->register_primitive("re2_scanner_match_regexp", prim_re2_scanner_match_regexp);
+}
+
 }
