@@ -1,11 +1,10 @@
 all: build
 
-include $(shell git rev-parse --show-toplevel)/common.mk
+include $(shell git rev-parse --show-toplevel)/../common.mk
 
 $(call GEN_MEC_RULE)
 
-CODE := hello_world.me  Makefile  ometa_example.me  \
-	ometa_grammar_example.me  using_calc.me
+CODE := hello_world.me socket.me
 
 BYTECODE := $(patsubst %.me,%.mec,$(CODE))
 
