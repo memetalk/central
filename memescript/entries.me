@@ -1236,7 +1236,7 @@ init new: fun(name) {
   @classes = {};
 }
 instance_method add_meta: fun(key, val) {
-  @meta_vars[key] = val;
+  @meta_vars[key] = val.trim;
 }
 instance_method set_params: fun(params) {
   @params = params;
