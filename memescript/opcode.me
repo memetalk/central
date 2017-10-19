@@ -1,11 +1,13 @@
-meme central:memescript/0.0.2/compiler
+meme central:memescript/0.0.3/compiler
 
 @author: Thiago Silva <thiago@memetalk.org>;
 @license: MIT;
 
-requires io
+requires io, mirror
 where
   io = central:linux/0.0.1/io
+  mirror = central:reflection/0.0.1/mirror
+  import Mirror from mirror
 end
 
 WORD_SIZE: 4;

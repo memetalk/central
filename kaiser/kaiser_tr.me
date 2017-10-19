@@ -1,13 +1,15 @@
-meme central:memescript/0.0.1/compiler
+meme central:memescript/0.0.3/compiler
 
 @author: Thiago Silva <thiago@memetalk.org>;
 @license: MIT;
 
-requires io, ometa_base
+requires io, ometa_base, mirror
 where
   io = central:linux/0.0.1/io
-  ometa_base = central:ometa/0.0.1/ometa_base
+  ometa_base = central:ometa/0.0.2/ometa_base
+  mirror = central:reflection/0.0.1/mirror
   import OMetaBase from ometa_base
+  import Mirror from mirror
 end
 
 flatten: fun(lst) {

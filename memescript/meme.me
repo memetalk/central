@@ -1,11 +1,11 @@
-meme central:memescript/0.0.2/compiler
+meme central:memescript/0.0.3/compiler
 
 @author: Thiago Silva <thiago@memetalk.org>;
 @license: MIT;
 
 requires kaiser_base, io
 where
-  kaiser_base = central:kaiser/0.0.1/kaiser_base
+  kaiser_base = central:kaiser/0.0.2/kaiser_base
   io         = central:linux/0.0.1/io
   import KaiserBase from kaiser_base
   import ParseError from kaiser_base

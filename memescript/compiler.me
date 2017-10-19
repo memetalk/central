@@ -1,18 +1,19 @@
-meme central:memescript/0.0.2/compiler
+meme central:memescript/0.0.3/compiler
 
 @author: Thiago Silva <thiago@memetalk.org>;
 @license: MIT;
 
-requires bits, comp_vmemory, core_vmemory, io, entries, ometa_base, meme, meme_tr
+requires ext, bits, comp_vmemory, core_vmemory, io, entries, ometa_base, meme, meme_tr
 where
-  bits         = central:memescript/0.0.2/bits
-  comp_vmemory = central:memescript/0.0.2/comp_vmemory
-  core_vmemory = central:memescript/0.0.2/core_vmemory
+  bits         = central:memescript/0.0.3/bits
+  comp_vmemory = central:memescript/0.0.3/comp_vmemory
+  core_vmemory = central:memescript/0.0.3/core_vmemory
+  entries      = central:memescript/0.0.3/entries
+  meme         = central:memescript/0.0.3/meme
+  meme_tr      = central:memescript/0.0.3/meme_tr
+  ext          = central:std/0.0.3/ext
   io           = central:linux/0.0.1/io
-  entries      = central:memescript/0.0.2/entries
-  ometa_base   = central:ometa/0.0.1/ometa_base
-  meme         = central:memescript/0.0.2/meme
-  meme_tr      = central:memescript/0.0.2/meme_tr
+  ometa_base   = central:ometa/0.0.2/ometa_base
   import OMetaException from ometa_base
 end
 
@@ -57,7 +58,7 @@ instance_method create_mec_struct: fun() {
   // var base = header_size + mec[:header][:names_size];
   var vmem = comp_vmemory.CompVirtualMemory.new();
   vmem.set_base(header_size);
-  bench("cmodule.fill", fun() { @cmodule.fill(vmem); });
+  ext.bench("cmodule.fill", fun() { @cmodule.fill(vmem); });
 
   mec[:header][:magic_number] = MAGIC_NUMBER;
 
@@ -166,16 +167,16 @@ instance_method translate: fun(ast) {
     parser.apply();
   } catch(OMetaException e) {
     io.print(input.format_error);
-    exit(1); //FIXME: we probably want to raise as this might be used as a library
+    ext.exit(1); //FIXME: we probably want to raise as this might be used as a library
   }
 }
 instance_method parse_and_translate: fun() {
-  var ast = bench("parsing", fun() {
+  var ast = ext.bench("parsing", fun() {
     this.parse();
   });
   // io.print(ast);
   // io.print("translating...");
-  bench("translate", fun() {
+  ext.bench("translate", fun() {
     this.translate(ast);
   });
 }
@@ -188,14 +189,14 @@ init new: fun(filepath) {
   @cmodule = null;
 }
 instance_method new_module: fun() {
-  var module_name = basename(this.filepath); //provisory function to get the basename
+  var module_name = ext.basename(this.filepath); //provisory function to get the basename
   @cmodule = entries.CompiledModule.new(module_name);
   return @cmodule;
 }
 instance_method compile: fun() {
   this.parse_and_translate();
 
-  bench("mec dump", fun() {
+  ext.bench("mec dump", fun() {
     var mec = MEC.new(@cmodule);
     mec.dump(this.filepath);
   });
@@ -325,11 +326,11 @@ instance_method dump: fun() {
 end
 
 main: fun() {
-  var args = argv();
+  var args = ext.argv();
   if (args.size < 2) {
     io.print("usage: compiler <path to file.me>");
   } else {
-    argv().from(1).each(fun(_, fpath) {
+    ext.argv().from(1).each(fun(_, fpath) {
       io.print(fpath);
       compile(fpath);
    });
@@ -339,9 +340,12 @@ main: fun() {
 compile_core: fun(source_path) {
   CoreCompiler.new(source_path).compile();
 }
+
 compile_mec: fun(source_path) {
   MECCompiler.new(source_path).compile();
 }
+
+
 compile: fun(source_path) {
   if (source_path.find("core.me") >= 0) { //FIXME: be more precise.
     compile_core(source_path);

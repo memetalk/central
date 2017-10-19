@@ -1,14 +1,16 @@
-meme central:memescript/0.0.2/compiler
+meme central:memescript/0.0.3/compiler
 
 @author: Thiago Silva <thiago@memetalk.org>;
 @license: MIT;
 
-requires vmemory, mec, bits
+requires vmemory, mec, bits, mirror
 where
-  vmemory  = central:memescript/0.0.2/vmemory
-  mec      = central:memescript/0.0.2/mec
-  bits     = central:memescript/0.0.2/bits
+  vmemory  = central:memescript/0.0.3/vmemory
+  mec      = central:memescript/0.0.3/mec
+  bits     = central:memescript/0.0.3/bits
+  mirror = central:reflection/0.0.1/mirror
   import VirtualMemory from vmemory
+  import Mirror from mirror
 end
 
 class CompVirtualMemory < VirtualMemory

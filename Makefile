@@ -1,4 +1,4 @@
-subdirs = std linux re2 kaiser ometa memescript
+subdirs = std linux reflection re2 kaiser ometa memescript
 
 all:
 	$(foreach el,$(subdirs),$(MAKE) -C $(el) all;)

@@ -4,7 +4,7 @@ include $(shell git rev-parse --show-toplevel)/../common.mk
 
 $(call GEN_MEC_RULE)
 
-CODE := remote_repl.me memetest.me
+CODE := remote_repl.me memetest.me ext.me
 BYTECODE := $(patsubst %.me,%.mec,$(CODE))
 
 DIST_FILES = $(CODE) $(BYTECODE) core.me

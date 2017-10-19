@@ -1,13 +1,15 @@
-meme central:memescript/0.0.2/compiler
+meme central:memescript/0.0.3/compiler
 
 @author: Thiago Silva <thiago@memetalk.org>;
 @license: MIT;
 
-requires bits, mec, io
+requires bits, mec, io, mirror
 where
-  bits     = central:memescript/0.0.2/bits
-  mec      = central:memescript/0.0.2/mec
+  bits     = central:memescript/0.0.3/bits
+  mec      = central:memescript/0.0.3/mec
   io       = central:linux/0.0.1/io
+  mirror = central:reflection/0.0.1/mirror
+  import Mirror from mirror
 end
 
 class Cell

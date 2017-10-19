@@ -1,11 +1,12 @@
-meme central:memescript/0.0.1/compiler
+meme central:memescript/0.0.3/compiler
 
 @author: Thiago Silva <thiago@memetalk.org>;
 @license: MIT;
 
-requires io
+requires io, ext
 where
  io = central:linux/0.0.1/io
+ ext = central:std/0.0.3/ext
 end
 
 //outside of Exception hierarchy, so
@@ -107,12 +108,16 @@ instance_method set_debugger_tests: fun(mod, tests_number) {
   @debugger_test_module = mod;
   @total_debugger_tests = tests_number;
 }
-
+instance_method set_debugger_module: fun(module) {
+  <primitive "memetest_set_debugger_module">
+}
+instance_method dbg: fun() {
+  <primitive "memetest_debug">
+}
 end
-
 main: fun() {
-  if (argv.size == 2) {
-    Test.new.start(argv[1]);
+  if (ext.argv.size == 2) {
+    Test.new.start(ext.argv[1]);
   } else {
     Test.new.start("../tests");
   }

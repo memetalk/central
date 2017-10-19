@@ -1,11 +1,11 @@
-meme central:memescript/0.0.2/compiler
+meme central:memescript/0.0.3/compiler
 
 @author: Thiago Silva <thiago@memetalk.org>;
 @license: MIT;
 
 requires ometa_base
 where
-  ometa_base = central:ometa/0.0.1/ometa_base
+  ometa_base = central:ometa/0.0.2/ometa_base
   import OMetaBase from ometa_base
 end
 
