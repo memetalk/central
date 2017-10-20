@@ -9,6 +9,10 @@ BYTECODE := $(patsubst %.me,%.mec,$(CODE))
 
 DIST_FILES = $(CODE) $(BYTECODE) core.me
 
-build: $(BYTECODE)
+build: core.img $(BYTECODE)
 clean:; -rm -f $(BYTECODE)
 dist: $(DIST_FILES); $(call INSTALL_DIST_FILES,$^)
+
+
+core.img: core.me
+	$(COMPILER_CMD) core.me
