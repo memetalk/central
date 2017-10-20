@@ -279,7 +279,7 @@ instance_method create_img_struct: fun() {
 instance_method dump: fun() {
   var img = this.create_img_struct();
 
-  io.with_file("core.img", fun(write) {
+  io.with_file(this.filepath.substr(0, this.filepath.size - 2) + "img", fun(write) {
     // header
 
     write(bits.pack(img[:header][:entries]));
@@ -331,11 +331,7 @@ main: fun() {
   } else {
     argv().from(1).each(fun(_, fpath) {
       io.print(fpath);
-      if (fpath.find("core.me") >= 0) { //FIXME: be more precise.
-        compile_core(fpath);
-      } else {
-        compile(fpath);
-      }
+      compile(fpath);
    });
   }
 }
@@ -343,7 +339,13 @@ main: fun() {
 compile_core: fun(source_path) {
   CoreCompiler.new(source_path).compile();
 }
-
-compile: fun(source_path) {
+compile_mec: fun(source_path) {
   MECCompiler.new(source_path).compile();
+}
+compile: fun(source_path) {
+  if (source_path.find("core.me") >= 0) { //FIXME: be more precise.
+    compile_core(source_path);
+  } else {
+    compile_mec(source_path);
+  }
 }
